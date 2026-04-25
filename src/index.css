@@ -1,0 +1,201 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+:root {
+  /* Nuvance Color Palette: Navy Blue, White, Gold */
+  --primary: #001f3f; /* Navy Blue - Trust & Professionalism */
+  --primary-foreground: #ffffff; /* White */
+  --sidebar-primary: #00264d; /* Darker Navy */
+  --sidebar-primary-foreground: #ffffff;
+  --chart-1: #d4af37; /* Gold accent */
+  --chart-2: #001f3f; /* Navy */
+  --chart-3: #003d66; /* Medium Navy */
+  --chart-4: #004d80; /* Light Navy */
+  --chart-5: #006699; /* Lighter Navy */
+  --radius: 0.5rem;
+  --background: #ffffff; /* White background */
+  --foreground: #001f3f; /* Navy text */
+  --card: #f8f9fa; /* Off-white cards */
+  --card-foreground: #001f3f; /* Navy text */
+  --popover: #ffffff;
+  --popover-foreground: #001f3f;
+  --secondary: #d4af37; /* Gold secondary */
+  --secondary-foreground: #001f3f; /* Navy text on gold */
+  --muted: #e8eef5; /* Light blue-gray */
+  --muted-foreground: #4a5f7f; /* Medium gray-blue */
+  --accent: #d4af37; /* Gold accent */
+  --accent-foreground: #001f3f; /* Navy text on gold */
+  --destructive: #dc2626;
+  --destructive-foreground: #ffffff;
+  --border: #e8eef5; /* Light border */
+  --input: #f8f9fa; /* Light input background */
+  --ring: #d4af37; /* Gold focus ring */
+  --sidebar: #ffffff;
+  --sidebar-foreground: #001f3f;
+  --sidebar-accent: #d4af37;
+  --sidebar-accent-foreground: #001f3f;
+  --sidebar-border: #e8eef5;
+  --sidebar-ring: #d4af37;
+}
+
+.dark {
+  /* Dark mode not needed for Nuvance - light theme only */
+  --primary: #001f3f;
+  --primary-foreground: #ffffff;
+  --sidebar-primary: #00264d;
+  --sidebar-primary-foreground: #ffffff;
+  --background: #001f3f;
+  --foreground: #ffffff;
+  --card: #003d66;
+  --card-foreground: #ffffff;
+  --popover: #003d66;
+  --popover-foreground: #ffffff;
+  --secondary: #d4af37;
+  --secondary-foreground: #001f3f;
+  --muted: #004d80;
+  --muted-foreground: #b0c4de;
+  --accent: #d4af37;
+  --accent-foreground: #001f3f;
+  --destructive: #ff6b6b;
+  --destructive-foreground: #ffffff;
+  --border: #004d80;
+  --input: #003d66;
+  --ring: #d4af37;
+  --chart-1: #d4af37;
+  --chart-2: #001f3f;
+  --chart-3: #003d66;
+  --chart-4: #004d80;
+  --chart-5: #006699;
+  --sidebar: #003d66;
+  --sidebar-foreground: #ffffff;
+  --sidebar-accent: #d4af37;
+  --sidebar-accent-foreground: #001f3f;
+  --sidebar-border: #004d80;
+  --sidebar-ring: #d4af37;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    font-family: 'Inter', sans-serif;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  h1 {
+    font-size: 3.5rem;
+    line-height: 1.1;
+  }
+  h2 {
+    font-size: 2.5rem;
+    line-height: 1.2;
+  }
+  h3 {
+    font-size: 1.875rem;
+    line-height: 1.3;
+  }
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]),
+  [type="button"]:not(:disabled),
+  [type="submit"]:not(:disabled),
+  [type="reset"]:not(:disabled),
+  a[href],
+  select:not(:disabled),
+  input[type="checkbox"]:not(:disabled),
+  input[type="radio"]:not(:disabled) {
+    @apply cursor-pointer;
+  }
+}
+
+@layer components {
+  /**
+   * Custom container utility that centers content and adds responsive padding.
+   *
+   * This overrides Tailwind's default container behavior to:
+   * - Auto-center content (mx-auto)
+   * - Add responsive horizontal padding
+   * - Set max-width for large screens
+   *
+   * Usage: <div className="container">...</div>
+   *
+   * For custom widths, use max-w-* utilities directly:
+   * <div className="max-w-6xl mx-auto px-4">...</div>
+   */
+  .container {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem; /* 16px - mobile padding */
+    padding-right: 1rem;
+  }
+
+  .flex {
+    min-height: 0;
+    min-width: 0;
+  }
+
+  @media (min-width: 640px) {
+    .container {
+      padding-left: 1.5rem; /* 24px - tablet padding */
+      padding-right: 1.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .container {
+      padding-left: 2rem; /* 32px - desktop padding */
+      padding-right: 2rem;
+      max-width: 1280px; /* Standard content width */
+    }
+  }
+}
