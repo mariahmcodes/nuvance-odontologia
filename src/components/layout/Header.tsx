@@ -1,85 +1,98 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { NuvanceButton } from "@/components/ui/NuvanceButton";
 
-/**
- * Header - Componente de navegação principal
- * Logo + Menu de navegação com mobile responsivo
- */
+const navLinks = [
+  { label: "Sobre", href: "#sobre" },
+  { label: "Profissionais", href: "#profissionais" },
+  { label: "Tratamentos", href: "#tratamentos" },
+  { label: "Casos", href: "#casos" },
+  { label: "Contato", href: "#contato" },
+];
+
 export default function Header() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
-  const navLinks = [
-    { label: "Sobre", href: "#sobre" },
-    { label: "Profissionais", href: "#profissionais" },
-    { label: "Especialidades", href: "#especialidades" },
-    { label: "Casos", href: "#casos" },
-    { label: "Contato", href: "#contato" },
-  ];
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
-    <header className="sticky top-0 z-50 bg-white shadow-sm border-b border-gray-100">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 sm:h-20">
-          {/* Logo */}
-          <div className="flex-shrink-0">
-            <h1 className="text-2xl font-bold text-blue-900">
-              Nuvance
-              <span className="text-yellow-500">.</span>
-            </h1>
-            <p className="text-xs text-gray-600">Odontologia</p>
+    <header
+      className={cn(
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-elegant",
+        scrolled
+          ? "bg-petrol-deep/85 backdrop-blur-md border-b border-gold/15"
+          : "bg-transparent"
+      )}
+    >
+      <div className="nuvance-container flex h-20 items-center justify-between">
+        {/* Logo placeholder — trocar <div> por <img src="..."/> quando tiver */}
+        <a href="#hero" className="flex items-center gap-3 group">
+          <div className="h-10 w-10 rounded-full bg-ivory/10 ring-1 ring-gold/40 transition-all group-hover:ring-gold" />
+          <div className="leading-tight">
+            <span className="font-display text-2xl text-ivory tracking-wide">
+              Nuvance<span className="text-gold">.</span>
+            </span>
+            <span className="block text-[10px] uppercase tracking-[0.32em] text-ivory/60">
+              Odontologia
+            </span>
           </div>
+        </a>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                className="text-gray-700 hover:text-blue-900 font-medium transition-colors"
-              >
-                {link.label}
-              </a>
-            ))}
+        {/* Desktop nav */}
+        <nav className="hidden lg:flex items-center gap-10">
+          {navLinks.map((l) => (
             <a
-              href="#contato"
-              className="bg-yellow-400 text-blue-900 px-6 py-2 rounded-lg font-semibold hover:bg-yellow-300 transition-colors"
+              key={l.href}
+              href={l.href}
+              className="story-link text-xs uppercase tracking-[0.22em] text-ivory/85 hover:text-ivory transition-colors"
             >
-              Agendar
+              {l.label}
             </a>
-          </nav>
+          ))}
+          <NuvanceButton variant="gold" size="sm" asChild>
+            <a href="#contato">Agendar</a>
+          </NuvanceButton>
+        </nav>
 
-          {/* Mobile Menu Button */}
-          <button
-            className="md:hidden p-2 text-blue-900"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-          >
-            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
-        </div>
-
-        {/* Mobile Navigation */}
-        {isMenuOpen && (
-          <nav className="md:hidden pb-4 space-y-2">
-            {navLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                className="block text-gray-700 hover:text-blue-900 py-2 font-medium"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                {link.label}
-              </a>
-            ))}
-            <a
-              href="#contato"
-              className="block bg-yellow-400 text-blue-900 px-6 py-2 rounded-lg font-semibold text-center hover:bg-yellow-300 transition-colors mt-4"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Agendar
-            </a>
-          </nav>
-        )}
+        {/* Mobile toggle */}
+        <button
+          aria-label="Abrir menu"
+          className="lg:hidden p-2 text-ivory"
+          onClick={() => setOpen((v) => !v)}
+        >
+          {open ? <X size={22} /> : <Menu size={22} />}
+        </button>
       </div>
+
+      {/* Mobile menu */}
+      {open && (
+        <div className="lg:hidden bg-petrol-deep/95 backdrop-blur-md border-t border-gold/15 animate-fade-in">
+          <nav className="nuvance-container py-6 flex flex-col gap-5">
+            {navLinks.map((l) => (
+              <a
+                key={l.href}
+                href={l.href}
+                onClick={() => setOpen(false)}
+                className="text-sm uppercase tracking-[0.22em] text-ivory/85 hover:text-gold transition-colors"
+              >
+                {l.label}
+              </a>
+            ))}
+            <NuvanceButton variant="gold" size="md" asChild>
+              <a href="#contato" onClick={() => setOpen(false)}>
+                Agendar consulta
+              </a>
+            </NuvanceButton>
+          </nav>
+        </div>
+      )}
     </header>
   );
 }

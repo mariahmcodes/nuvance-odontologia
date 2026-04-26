@@ -1,72 +1,82 @@
-import { Phone, MapPin, Mail, Clock } from "lucide-react";
+import { Phone, MapPin, MessageCircle, Clock, Instagram } from "lucide-react";
+import goldTexture from "@/assets/gold-geometric-texture.png";
 
-/**
- * Footer - Rodapé com informações de contato e links
- */
 export default function Footer() {
   return (
-    <footer className="bg-blue-900 text-white py-16">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
-          {/* Sobre */}
-          <div>
-            <h3 className="text-xl font-bold mb-4">
-              Nuvance<span className="text-yellow-400">.</span>
-            </h3>
-            <p className="text-gray-300 text-sm">
-              Transformando sorrisos e vidas há mais de 15 anos com excelência e humanidade.
+    <footer className="bg-petrol-deep text-ivory/80 relative overflow-hidden">
+      <div
+        aria-hidden
+        className="absolute inset-0 texture-gold-overlay"
+        style={{ ["--texture-gold-image" as string]: `url(${goldTexture})` }}
+      />
+
+      <div className="nuvance-container relative pt-20 pb-10">
+        <div className="grid gap-12 md:grid-cols-4">
+          {/* Marca */}
+          <div className="md:col-span-1">
+            <div className="flex items-center gap-3 mb-5">
+              <div className="h-10 w-10 rounded-full bg-ivory/10 ring-1 ring-gold/40" />
+              <span className="font-display text-2xl text-ivory">
+                Nuvance<span className="text-gold">.</span>
+              </span>
+            </div>
+            <p className="text-sm leading-relaxed text-ivory/65">
+              Odontologia premium com 25 anos de excelência. Implantes, estética e
+              reabilitação oral em um ambiente pensado pra você.
             </p>
           </div>
 
           {/* Contato */}
           <div>
-            <h4 className="font-semibold mb-4">Contato</h4>
-            <div className="space-y-3 text-sm text-gray-300">
-              <div className="flex items-center gap-2">
-                <Phone size={16} />
-                <span>(85) 3025-1414</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Phone size={16} />
-                <span>(85) 99825-1414</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Mail size={16} />
-                <span>contato@nuvance.com.br</span>
-              </div>
-            </div>
+            <h4 className="font-display text-xl text-gold mb-5">Contato</h4>
+            <ul className="space-y-3 text-sm">
+              <li className="flex items-center gap-3">
+                <Phone size={14} className="text-gold" />
+                (85) 3025-1414
+              </li>
+              <li className="flex items-center gap-3">
+                <MessageCircle size={14} className="text-gold" />
+                (85) 99825-1414
+              </li>
+              <li className="flex items-center gap-3">
+                <Instagram size={14} className="text-gold" />
+                @nuvance.odontologia
+              </li>
+            </ul>
           </div>
 
           {/* Endereço */}
           <div>
-            <h4 className="font-semibold mb-4">Localização</h4>
-            <div className="flex items-start gap-2 text-sm text-gray-300">
-              <MapPin size={16} className="mt-1 flex-shrink-0" />
-              <span>Av. Godofredo Maciel, 4000<br />Fortaleza, CE</span>
-            </div>
+            <h4 className="font-display text-xl text-gold mb-5">Endereço</h4>
+            <p className="text-sm flex items-start gap-3 leading-relaxed">
+              <MapPin size={14} className="text-gold mt-1 shrink-0" />
+              Av. Godofredo Maciel, 4000
+              <br />
+              Fortaleza — CE
+            </p>
           </div>
 
           {/* Horário */}
           <div>
-            <h4 className="font-semibold mb-4">Horário</h4>
-            <div className="space-y-2 text-sm text-gray-300">
-              <div className="flex items-center gap-2">
-                <Clock size={16} />
-                <span>Seg-Sex: 8h-18h</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Clock size={16} />
-                <span>Sábado: 8h-13h</span>
-              </div>
-            </div>
+            <h4 className="font-display text-xl text-gold mb-5">Horário</h4>
+            <ul className="space-y-3 text-sm">
+              <li className="flex items-center gap-3">
+                <Clock size={14} className="text-gold" />
+                Seg–Sex: 8h às 18h
+              </li>
+              <li className="flex items-center gap-3">
+                <Clock size={14} className="text-gold" />
+                Sábado: 8h às 13h
+              </li>
+            </ul>
           </div>
         </div>
 
-        {/* Divider */}
-        <div className="border-t border-blue-800 pt-8">
-          <p className="text-center text-gray-400 text-sm">
-            © 2026 Nuvance Odontologia. Todos os direitos reservados.
-          </p>
+        <div className="gold-divider my-12" />
+
+        <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-ivory/50 uppercase tracking-[0.2em]">
+          <span>© {new Date().getFullYear()} Nuvance Odontologia</span>
+          <span>Todos os direitos reservados</span>
         </div>
       </div>
     </footer>

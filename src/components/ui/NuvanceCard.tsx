@@ -1,39 +1,40 @@
-import { ReactNode } from "react";
+import * as React from "react";
+import { cn } from "@/lib/utils";
 
-interface NuvanceCardProps {
-  children: ReactNode;
-  className?: string;
-  variant?: "default" | "elevated" | "bordered";
+/**
+ * NuvanceCard — Card elegante com variantes pra fundos light/dark.
+ */
+interface NuvanceCardProps extends React.HTMLAttributes<HTMLDivElement> {
+  variant?: "light" | "dark" | "gold-border" | "ghost";
   hover?: boolean;
 }
 
-/**
- * NuvanceCard - Componente de card reutilizável
- * 
- * Variantes:
- * - default: Fundo off-white com sombra sutil
- * - elevated: Fundo branco com sombra mais pronunciada
- * - bordered: Borda navy com fundo branco
- */
-export default function NuvanceCard({
-  children,
-  className = "",
-  variant = "default",
-  hover = true,
-}: NuvanceCardProps) {
-  const variantStyles = {
-    default: "bg-gray-50 shadow-sm",
-    elevated: "bg-white shadow-lg",
-    bordered: "bg-white border-2 border-blue-900",
-  };
+const variantMap: Record<NonNullable<NuvanceCardProps["variant"]>, string> = {
+  light: "bg-card text-card-foreground border border-border/60 shadow-soft",
+  dark: "bg-petrol text-ivory border border-petrol-soft/40 shadow-card-dark",
+  "gold-border":
+    "bg-card text-card-foreground border border-gold/40 shadow-soft",
+  ghost:
+    "bg-transparent text-ivory border border-ivory/15 backdrop-blur-sm",
+};
 
-  const hoverStyles = hover ? "hover:shadow-xl hover:scale-105 transition-all duration-300" : "";
+const NuvanceCard = React.forwardRef<HTMLDivElement, NuvanceCardProps>(
+  ({ className, variant = "light", hover = true, ...props }, ref) => {
+    return (
+      <div
+        ref={ref}
+        className={cn(
+          "rounded-lg p-8 transition-colors duration-400 ease-elegant",
+          variantMap[variant],
+          hover && "hover:border-gold/50",
+          className
+        )}
+        {...props}
+      />
+    );
+  }
+);
+NuvanceCard.displayName = "NuvanceCard";
 
-  return (
-    <div
-      className={`rounded-lg p-6 ${variantStyles[variant]} ${hoverStyles} ${className}`}
-    >
-      {children}
-    </div>
-  );
-}
+export { NuvanceCard };
+export default NuvanceCard;

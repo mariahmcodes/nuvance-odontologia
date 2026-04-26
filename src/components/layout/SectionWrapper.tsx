@@ -1,41 +1,64 @@
-import { ReactNode } from "react";
-
-interface SectionWrapperProps {
-  children: ReactNode;
-  className?: string;
-  bgColor?: "white" | "light-gray" | "navy" | "gold";
-  id?: string;
-}
+import * as React from "react";
+import { cn } from "@/lib/utils";
+import goldTexture from "@/assets/gold-geometric-texture.png";
 
 /**
- * SectionWrapper - Componente reutilizável para envolver seções da landing page
- * Fornece padding consistente, max-width e opções de cor de fundo
- * 
- * Uso:
- * <SectionWrapper bgColor="white">
- *   <h2>Título da Seção</h2>
- *   <p>Conteúdo...</p>
- * </SectionWrapper>
+ * SectionWrapper — Envelope de seção com tons alternados.
+ * tone: light | warm | dark | deep
+ * texture: none | lines | grid | gold-overlay (marca d'água geométrica dourada)
  */
+interface SectionWrapperProps extends React.HTMLAttributes<HTMLElement> {
+  tone?: "light" | "warm" | "dark" | "deep";
+  texture?: "none" | "lines" | "grid" | "gold-overlay";
+  containerClassName?: string;
+}
+
+const toneMap: Record<NonNullable<SectionWrapperProps["tone"]>, string> = {
+  light: "bg-ivory text-petrol-deep",
+  warm: "bg-ivory-warm text-petrol-deep",
+  dark: "bg-petrol text-ivory",
+  deep: "bg-petrol-deep text-ivory",
+};
+
 export default function SectionWrapper({
   children,
-  className = "",
-  bgColor = "white",
-  id,
+  className,
+  tone = "light",
+  texture = "none",
+  containerClassName,
+  ...props
 }: SectionWrapperProps) {
-  const bgColorMap = {
-    white: "bg-white",
-    "light-gray": "bg-gray-50",
-    navy: "bg-blue-900",
-    gold: "bg-yellow-50",
-  };
+  const textureClass =
+    texture === "lines"
+      ? "texture-lines"
+      : texture === "grid"
+      ? "texture-grid"
+      : texture === "gold-overlay"
+      ? "texture-gold-overlay"
+      : "";
+
+  const textureStyle =
+    texture === "gold-overlay"
+      ? ({ ["--texture-gold-image" as string]: `url(${goldTexture})` } as React.CSSProperties)
+      : undefined;
 
   return (
     <section
-      id={id}
-      className={`w-full py-16 sm:py-20 md:py-28 ${bgColorMap[bgColor]} ${className}`}
+      className={cn(
+        "relative overflow-hidden py-20 md:py-28 lg:py-36",
+        toneMap[tone],
+        className
+      )}
+      {...props}
     >
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      {textureClass && (
+        <div
+          aria-hidden
+          className={cn("absolute inset-0", textureClass)}
+          style={textureStyle}
+        />
+      )}
+      <div className={cn("nuvance-container relative", containerClassName)}>
         {children}
       </div>
     </section>
