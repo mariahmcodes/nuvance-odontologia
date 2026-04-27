@@ -82,6 +82,7 @@
   /* --- TEXTURA GEOMÉTRICA (FOTO 3) --- */
   .texture-gold-overlay {
     position: relative;
+    pointer-events: none;
     z-index: 1;
   }
 
