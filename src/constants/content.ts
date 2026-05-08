@@ -9,10 +9,10 @@ export const heroContent = {
   },
 
   description:
-    "25 anos transformando sorrisos em Fortaleza. Tecnologia digital, atendimento humano e resultados que duram a vida toda.",
+    "25 anos transformando sorrisos em Fortaleza. Tecnologia digital, atendimento humanizado e resultados que duram a vida toda.",
 
   cta: {
-    primary: "Agendar avaliação",
+    primary: "Agende sua avaliação",
     secondary: "Conheça os tratamentos",
   },
 
@@ -31,19 +31,19 @@ export const aboutContent = {
   eyebrow: "Sobre a Nuvance",
 
   title: {
-    main: "Onde a técnica encontra a",
+    main: "Onde a precisão encontra a",
     highlight: "arte",
     complement: "do sorriso.",
   },
 
   description:
-    "A Nuvance é uma clínica premium em Fortaleza, especializada em implantes, estética dental e reabilitação oral. Cada paciente é recebido como único — porque cada sorriso também é.",
+    "Localizada no bairro da Maraponga em Fortaleza, a Nuvance é um centro de excelência em reabilitação oral. Combinamos tecnologia de ponta com um olhar artístico para transformar vidas através da saúde bucal.",
 
   features: [
-    "Time com 25 anos de experiência clínica",
-    "Tecnologia digital de ponta em cada etapa",
-    "Ambiente acolhedor e atendimento humano",
-    "Acompanhamento completo pré e pós-procedimento",
+    "Experiência clínica de mais de 25 anos",
+    "Fluxo 100% digital e tecnologia diagnóstica",
+    "Ambiente acolhedor focado no conforto do paciente",
+    "Excelência em casos de alta complexidade estética",
   ],
 
   badge: {
@@ -52,41 +52,46 @@ export const aboutContent = {
   },
 
   cta: {
-    label: "Conheça nosso time",
+    label: "Conheça os especialistas",
     href: "#profissionais",
   },
 
-  mediaLabel: "Foto da clínica / equipe",
+  mediaLabel: "Equipe Nuvance Odontologia reunida na clínica",
 };
 
 export const videoSectionContent = {
   eyebrow: "A clínica em movimento",
   title: "Um tour pelo nosso espaço",
-
   video: {
-    ariaLabel: "Vídeo institucional da clínica Nuvance",
-    placeholder: "Vídeo institucional · Drone",
-    src: "/videos/drone.mp4",
+    ariaLabel: "Vídeo institucional em formato vertical com áudio apresentando a clínica Nuvance",
+    placeholder: "Clique para assistir com som",
+    src: "nKs2bcq_BFY", // ID extraído do link
   },
 };
 
 export const doctorsSectionContent = {
   eyebrow: "Nosso time",
   title: "Especialistas dedicados ao seu sorriso",
+  description:
+    "Profissionais que unem rigor técnico, sensibilidade estética e cuidado humano em cada consulta.",
 };
 
 export const doctors = [
   {
     name: "Dr. Thiago Carvalho",
-    role: "Implantodontista — CRO/CE 4106",
-    bio: "Referência em implantes e reabilitação oral. 25 anos transformando sorrisos com precisão técnica e visão estética.",
-    tags: ["Implantes", "Reabilitação Oral", "Cirurgia"],
+    role: "Implantodontia",
+    bio: "Especialista com foco em reabilitação oral e resultados naturais.",
+    tags: ["Implantes", "Estética", "Reabilitação"],
+    image: "/images/doctors/dr-thiago.webp",
+    instagram: "https://www.instagram.com/drthiagocarvalho_/",
   },
   {
     name: "Dra. Juliana Maia",
-    role: "Estética Dental — CRO/CE 4121",
-    bio: "Especialista em facetas e lentes de contato. Une harmonia facial e naturalidade em cada sorriso.",
-    tags: ["Facetas", "Lentes de Contato", "Estética"],
+    role: "Odontologia Estética",
+    bio: "Atuação focada em estética dental e reabilitação oral.",
+    tags: ["Estética", "Lentes de contato", "Facetas"],
+    image: "/images/doctors/dra-juliana.webp",
+    instagram: "https://www.instagram.com/drajulianamaia/",
   },
 ];
 
@@ -116,26 +121,62 @@ export const treatments = [
 export const casesContent = {
   eyebrow: "Antes & depois",
   title: "Transformações que falam por si",
-  description:
-    "Cada caso é único. Veja como devolvemos confiança, função e beleza a centenas de pacientes.",
+  description: "Cada caso é único. Veja como devolvemos confiança, função e beleza a centenas de pacientes.",
   testimonial: {
-    quote:
-      "Recuperei mais que meu sorriso — recuperei a confiança de sorrir de novo.",
+    quote: "Recuperei mais que meu sorriso — recuperei a confiança de sorrir de novo.",
     author: "Paciente Nuvance",
   },
 };
 
+export const casesItems = [
+  { 
+    id: 1, 
+    type: 'video', 
+    src: '/videos/case-1.mp4', 
+    title: "Caso #01", 
+    treatment: "Implantes + Facetas" 
+  },
+  { 
+    id: 2, 
+    type: 'image', 
+    src: '/images/cases/case-1.webp', 
+    title: "Caso #02", 
+    treatment: "Lentes de Contato" 
+  },
+  { 
+    id: 3, 
+    type: 'video', 
+    src: '/videos/case-2.mp4', 
+    title: "Caso #03", 
+    treatment: "Protocolos sobre implantes" 
+  },
+  { 
+    id: 4, 
+    type: 'image', 
+    src: '/images/cases/case-2.webp', 
+    title: "Caso #04", 
+    treatment: "Facetas em resina" 
+  },
+] as const;  
+
 export const structureContent = {
-  eyebrow: "A clínica",
-  title: "Um espaço pensado pra você se sentir em casa.",
-  description:
-    "Ambientes amplos, design contemporâneo e equipamentos de última geração. Cada detalhe foi escolhido pra transformar a experiência de ir ao dentista em algo acolhedor.",
+  eyebrow: "Infraestrutura",
+  title: "Um espaço pensado para você se sentir em casa.",
+  description: "Ambientes amplos, design contemporâneo e equipamentos de última geração. Cada detalhe foi escolhido para transformar a experiência de ir ao dentista em um momento de cuidado e bem-estar.",
   features: [
-    "Centro cirúrgico próprio e esterilizado",
     "Scanner intraoral e radiografia digital",
-    "Salas de atendimento individuais",
-    "Biossegurança em padrão hospitalar",
+    "Salas de atendimento individuais e privativas",
+    "Biossegurança em padrão hospitalar rigoroso",
   ],
+  gallery: [
+    { src: "/images/structure/clinic-2.webp", label: "Consultório 1" },
+    { src: "/images/structure/clinic-1.webp", label: "Consultório 2" },
+    { src: "/images/structure/clinic-3.webp", label: "Consultório 3" },
+    { src: "/images/structure/clinic-4.webp", label: "Corredor" },
+    { src: "/images/structure/clinic-5.webp", label: "Gerência" },
+    { src: "/images/structure/clinic-6.webp", label: "Recepção" },
+    { src: "/images/structure/clinic-7.webp", label: "Fachada Nuvance" },
+  ]
 };
 
 export const ctaContent = {
@@ -144,8 +185,8 @@ export const ctaContent = {
   highlight: "sorriso extraordinário.",
   description:
     "Estamos prontos para transformar sua experiência odontológica. Escolha como prefere falar conosco agora mesmo.",
-  primary: "Agendar pelo WhatsApp",
-  secondary: "Ligar agora",
+  primary: "Agende pelo WhatsApp",
+  secondary: "Ligue agora",
   whatsappLink:
     "https://wa.me/5585992945489?text=Olá!%20Gostaria%20de%20agendar%20uma%20avaliação%20na%20Nuvance.",
   phone: "5585992945489",
@@ -154,7 +195,7 @@ export const ctaContent = {
 export const locationContent = {
   name: "Nuvance Odontologia",
 
-  eyebrow: "Localização",
+  eyebrow: "Onde estamos",
   title: "Visite a Nuvance",
   highlight: "em Fortaleza",
 
@@ -179,4 +220,13 @@ export const locationContent = {
 
   mapEmbed:
     "Av.+Godofredo+Maciel,+4000+Loja+02,+Mondubim,+Fortaleza+CE,+60711-502",
+};
+
+export const testimonialsContent = {
+  eyebrow: "Relato Real",
+  title: "O melhor investimento da vida",
+  video: {
+    src: "/videos/testimonial.mp4",
+    ariaLabel: "Paciente relata que o tratamento na Nuvance foi o melhor investimento de sua vida",
+  }
 };

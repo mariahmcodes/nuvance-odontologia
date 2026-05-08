@@ -10,63 +10,79 @@ export default function CTASection() {
       id="contato"
       tone="dark"
       texture="gold-overlay"
-      className="relative overflow-hidden py-24 md:py-32"
+      className="py-20 md:py-32"
     >
-      <div className="max-w-4xl mx-auto text-center relative z-20">
-        <Reveal>
-          <span className="eyebrow mb-6 text-gold">
-            {ctaContent.eyebrow}
-          </span>
-        </Reveal>
+      <section aria-labelledby="cta-title">
 
-        <Reveal delay={0.08}>
-          <h2 className="font-display text-5xl md:text-7xl text-ivory mb-8 leading-[1.1]">
-            Sua jornada para um <br />
-            <span className="italic text-gold font-light">
-              {ctaContent.highlight}
+        <div className="max-w-4xl mx-auto text-center relative z-20">
+
+          <Reveal>
+            <span className="eyebrow mb-6 text-gold block">
+              {ctaContent.eyebrow}
             </span>
-          </h2>
-        </Reveal>
+          </Reveal>
 
-        <Reveal delay={0.16}>
-          <p className="text-ivory/60 max-w-xl mx-auto text-lg md:text-xl mb-16 leading-relaxed">
-            {ctaContent.description}
-          </p>
-        </Reveal>
-
-        <Reveal delay={0.24}>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-8 relative z-30 pointer-events-auto">
-            <a
-              href={ctaContent.whatsappLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full sm:w-auto"
+          <Reveal delay={0.06}>
+            <h2
+              id="cta-title"
+              className="
+                font-display text-4xl md:text-7xl
+                text-ivory mb-6 md:mb-8
+                leading-[1.1]
+              "
             >
-              <NuvanceButton
-                variant="gold"
-                size="lg"
-                className="w-full px-10 py-8 text-base shadow-gold-glow group cursor-pointer"
-              >
-                <MessageCircle
-                  size={22}
-                  className="group-hover:animate-pulse mr-2"
-                />
-                {ctaContent.primary}
+              Sua jornada para um <br />
+              <span className="italic text-gold font-light">
+                {ctaContent.highlight}
+              </span>
+            </h2>
+          </Reveal>
+
+          <Reveal delay={0.1}>
+            <p className="text-ivory/60 max-w-xl mx-auto text-base md:text-xl mb-12 md:mb-16 leading-relaxed">
+              {ctaContent.description}
+            </p>
+          </Reveal>
+
+          <Reveal delay={0.14}>
+            <div
+              className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12"
+              role="group"
+            >
+
+              <NuvanceButton variant="gold" size="md" asChild>
+                <a
+                  href={ctaContent.whatsappLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center"
+                >
+                  <MessageCircle size={18} className="mr-2" />
+                  {ctaContent.primary}
+                </a>
               </NuvanceButton>
-            </a>
 
-            <a
-              href={`tel:${ctaContent.phone}`}
-              className="group flex items-center gap-4 text-ivory/80 hover:text-gold transition-all duration-300 font-sans tracking-widest text-xs uppercase font-bold cursor-pointer"
-            >
-              <div className="h-12 w-12 rounded-full border border-ivory/20 flex items-center justify-center group-hover:border-gold group-hover:bg-gold/10 transition-all duration-500">
-                <Phone size={18} />
-              </div>
-              <span>{ctaContent.secondary}</span>
-            </a>
-          </div>
-        </Reveal>
-      </div>
+              <a
+                href={`tel:${ctaContent.phone}`}
+                className="
+                  flex items-center gap-3
+                  text-ivory/80 hover:text-gold
+                  transition-colors
+                  uppercase tracking-[0.18em]
+                  text-[10px] font-bold
+                "
+              >
+                <div className="h-10 w-10 rounded-full border border-ivory/20 flex items-center justify-center">
+                  <Phone size={14} />
+                </div>
+                {ctaContent.secondary}
+              </a>
+
+            </div>
+          </Reveal>
+
+        </div>
+      </section>
     </SectionWrapper>
   );
 }

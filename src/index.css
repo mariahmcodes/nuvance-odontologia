@@ -2,28 +2,27 @@
 @import "tailwindcss";
 
 @theme {
-  /* --- CORES DO DESIGN ORIGINAL --- */
   --color-petrol: hsl(196 64% 18%);
   --color-petrol-deep: hsl(197 70% 11%);
-  --color-petrol-soft: hsl(196 40% 28%);
+
   --color-gold: hsl(40 48% 59%);
   --color-gold-soft: hsl(40 55% 72%);
   --color-gold-deep: hsl(36 45% 42%);
-  --color-ivory: hsl(40 30% 96%);
-  --color-ivory-warm: hsl(38 25% 92%);
 
-  /* --- TIPOGRAFIA --- */
+  --color-ivory: hsl(40 30% 96%);
+  --color-ivory-warm: hsl(38 24% 93%);
+
   --font-display: "Cormorant Garamond", serif;
   --font-sans: "Inter", sans-serif;
 
-  /* --- ANIMAÇÃO & EFEITOS --- */
   --ease-elegant: cubic-bezier(0.22, 1, 0.36, 1);
+
   --shadow-gold-glow: 0 0 40px -8px hsla(40, 48%, 59%, 0.45);
   --shadow-elegant: 0 20px 60px -20px hsla(196, 64%, 18%, 0.25);
-  --shadow-soft: 0 8px 30px -10px hsla(196, 64%, 18%, 0.15);
 
-  /* --- TEXTURAS --- */
-  --texture-gold-image: url('/src/assets/gold-geometric-texture.png');
+  --shadow-soft: 0 10px 40px -18px hsla(196, 64%, 18%, 0.18);
+
+  --texture-gold-image: url('/gold-geometric-texture.webp');
 }
 
 @layer base {
@@ -40,8 +39,9 @@
     --border-color: hsl(196 30% 22%);
   }
 
-  /* Reset de bordas para v4 */
-  * { border-color: var(--border-color); }
+  * {
+    border-color: var(--border-color);
+  }
 
   body {
     background-color: var(--background);
@@ -58,9 +58,37 @@
     line-height: 1.1;
   }
 
-  /* Escalas de tamanho do original */
   h1 { font-size: clamp(3rem, 8vw, 4.5rem); }
   h2 { font-size: clamp(2.25rem, 6vw, 3rem); }
+
+  @media (max-width: 768px) {
+    h1 {
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+    }
+
+    h2 {
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+    }
+
+    p {
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    li {
+      line-height: 1.55;
+    }
+
+    ul {
+      line-height: 1.6;
+    }
+
+    p + p {
+      margin-top: 0.75rem;
+    }
+  }
 }
 
 @layer components {
@@ -68,18 +96,17 @@
     @apply mx-auto w-full max-w-7xl px-6 md:px-10;
   }
 
-  /* --- EYEBROW --- */
   .eyebrow {
     @apply inline-flex items-center gap-3 text-xs font-medium uppercase tracking-[0.25em];
     color: var(--color-gold);
   }
+
   .eyebrow::before {
     content: "";
     @apply h-px w-7;
     background-color: var(--color-gold);
   }
 
-  /* --- TEXTURA GEOMÉTRICA (FOTO 3) --- */
   .texture-gold-overlay {
     position: relative;
     pointer-events: none;
@@ -101,16 +128,17 @@
     opacity: 0.45;
   }
 
-  /* --- STORY LINK (UNDERLINE ANIMADO) --- */
   .story-link {
     @apply relative inline-block;
   }
+
   .story-link::after {
     content: "";
     @apply absolute left-0 -bottom-0.5 h-px w-full scale-x-0 transition-transform duration-400;
     background-color: var(--color-gold);
     transform-origin: right;
   }
+
   .story-link:hover::after {
     @apply scale-x-100;
     transform-origin: left;

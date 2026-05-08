@@ -1,15 +1,26 @@
 import { useEffect, useState } from "react";
-import { Menu, X } from "lucide-react";
+import { Instagram, Menu, X } from "lucide-react";
+
 import { cn } from "@/lib/utils";
 import { NuvanceButton } from "@/components/ui/NuvanceButton";
 
+const WHATSAPP_LINK =
+  "https://wa.me/5585992945489?text=Olá!%20Gostaria%20de%20agendar%20uma%20avaliação%20na%20Nuvance.";
+
+const INSTAGRAM_LINK =
+  "https://www.instagram.com/nuvanceodontologia/";
+
 const navLinks = [
   { label: "Sobre", href: "#sobre" },
-  { label: "Profissionais", href: "#profissionais" },
+  { label: "Equipe", href: "#profissionais" },
   { label: "Tratamentos", href: "#tratamentos" },
-  { label: "Casos", href: "#casos" },
-  { label: "Contato", href: "#contato" },
+  { label: "Resultados", href: "#casos" },
+  { label: "Estrutura", href: "#estrutura" },
+  { label: "Localização", href: "#localizacao" },
 ];
+
+const navText =
+  "text-[11px] font-medium uppercase tracking-[0.22em] text-ivory/80 hover:text-gold transition-colors";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
@@ -17,82 +28,164 @@ export default function Header() {
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
+
     onScroll();
+
     window.addEventListener("scroll", onScroll, { passive: true });
+
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "";
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
 
   return (
     <header
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-elegant",
-        scrolled
-          ? "bg-petrol-deep/85 backdrop-blur-md border-b border-gold/15"
+        "fixed top-0 left-0 right-0 z-[100] transition-all duration-500 ease-in-out",
+        scrolled || open
+          ? "bg-petrol-deep/92 backdrop-blur-xl border-b border-gold/10 shadow-[0_10px_40px_rgba(0,0,0,0.18)]"
           : "bg-transparent"
       )}
     >
-      <div className="nuvance-container flex h-20 items-center justify-between">
-        {/* Logo placeholder — trocar <div> por <img src="..."/> quando tiver */}
-        <a href="#hero" className="flex items-center gap-3 group">
-          <div className="h-10 w-10 rounded-full bg-ivory/10 ring-1 ring-gold/40 transition-all group-hover:ring-gold" />
-          <div className="leading-tight">
-            <span className="font-display text-2xl text-ivory tracking-wide">
-              Nuvance<span className="text-gold">.</span>
-            </span>
-            <span className="block text-[10px] uppercase tracking-[0.32em] text-ivory/60">
-              Odontologia
-            </span>
+      <div
+        className={cn(
+          "nuvance-container flex items-center justify-between transition-all duration-500",
+          scrolled ? "h-[68px]" : "h-24"
+        )}
+      >
+        <a
+          href="#hero"
+          aria-label="Nuvance Odontologia"
+          className="flex shrink-0 items-center"
+        >
+          <div className="relative flex w-28 items-center justify-center md:w-36 xl:w-48">
+            <img
+              src="/logo.webp"
+              alt="Nuvance Odontologia"
+              fetchPriority="high"
+              className={cn(
+                "h-auto w-full object-contain transition-all duration-500",
+                scrolled ? "scale-100" : "scale-[1.05]"
+              )}
+            />
           </div>
         </a>
 
-        {/* Desktop nav */}
-        <nav className="hidden lg:flex items-center gap-10">
-          {navLinks.map((l) => (
+        <nav
+          aria-label="Menu principal"
+          className="hidden items-center gap-10 xl:flex"
+        >
+          {navLinks.map((link) => (
             <a
-              key={l.href}
-              href={l.href}
-              className="story-link text-xs uppercase tracking-[0.22em] text-ivory/85 hover:text-ivory transition-colors"
+              key={link.href}
+              href={link.href}
+              className={cn(
+                navText,
+                "relative after:absolute after:left-0 after:-bottom-1.5 after:h-px after:w-0 after:bg-gold after:transition-all after:duration-300 hover:after:w-full"
+              )}
             >
-              {l.label}
+              {link.label}
             </a>
           ))}
-          <NuvanceButton variant="gold" size="sm" asChild>
-            <a href="#contato">Agendar</a>
+
+          <a
+            href={INSTAGRAM_LINK}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Instagram da Nuvance"
+            className="text-gold/80 transition-colors duration-300 hover:text-gold"
+          >
+            <Instagram size={18} strokeWidth={1.8} />
+          </a>
+
+          <NuvanceButton
+            variant="gold"
+            size="sm"
+            asChild
+            className="rounded-full px-6 text-[11px] font-medium uppercase tracking-[0.22em]"
+          >
+            <a
+              href={WHATSAPP_LINK}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Agendar
+            </a>
           </NuvanceButton>
         </nav>
 
-        {/* Mobile toggle */}
         <button
-          aria-label="Abrir menu"
-          className="lg:hidden p-2 text-ivory"
-          onClick={() => setOpen((v) => !v)}
+          type="button"
+          aria-label={open ? "Fechar menu" : "Abrir menu"}
+          aria-expanded={open}
+          onClick={() => setOpen((prev) => !prev)}
+          className="relative z-[110] flex h-11 w-11 items-center justify-center rounded-full border border-gold/10 bg-white/[0.04] text-gold backdrop-blur-md transition-all duration-300 active:scale-90 xl:hidden"
         >
           {open ? <X size={22} /> : <Menu size={22} />}
         </button>
       </div>
 
-      {/* Mobile menu */}
-      {open && (
-        <div className="lg:hidden bg-petrol-deep/95 backdrop-blur-md border-t border-gold/15 animate-fade-in">
-          <nav className="nuvance-container py-6 flex flex-col gap-5">
-            {navLinks.map((l) => (
+      <div
+        className={cn(
+          "overflow-hidden transition-all duration-500 ease-in-out xl:hidden",
+          open
+            ? "max-h-[600px] border-t border-gold/10 opacity-100"
+            : "pointer-events-none max-h-0 opacity-0"
+        )}
+      >
+        <div className="bg-petrol-deep/95 backdrop-blur-2xl">
+          <nav className="nuvance-container flex flex-col gap-1 py-8">
+            {navLinks.map((link, index) => (
               <a
-                key={l.href}
-                href={l.href}
+                key={link.href}
+                href={link.href}
                 onClick={() => setOpen(false)}
-                className="text-sm uppercase tracking-[0.22em] text-ivory/85 hover:text-gold transition-colors"
+                className={cn(
+                  navText,
+                  "flex min-h-[52px] items-center border-b border-white/[0.04] px-1"
+                )}
+                style={{ transitionDelay: `${index * 45}ms` }}
               >
-                {l.label}
+                {link.label}
               </a>
             ))}
-            <NuvanceButton variant="gold" size="md" asChild>
-              <a href="#contato" onClick={() => setOpen(false)}>
-                Agendar consulta
-              </a>
-            </NuvanceButton>
+
+            <a
+              href={INSTAGRAM_LINK}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex min-h-[52px] items-center gap-3 border-b border-white/[0.04] px-1 text-[11px] font-medium uppercase tracking-[0.22em] text-gold/80 transition-colors duration-300 hover:text-gold"
+            >
+              <Instagram size={15} />
+              Instagram
+            </a>
+
+            <div className="pt-6">
+              <NuvanceButton
+                variant="gold"
+                size="md"
+                asChild
+                className="w-full rounded-full text-[11px] font-medium uppercase tracking-[0.22em]"
+              >
+                <a
+                  href={WHATSAPP_LINK}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setOpen(false)}
+                >
+                  Agendar consulta
+                </a>
+              </NuvanceButton>
+            </div>
           </nav>
         </div>
-      )}
+      </div>
     </header>
   );
 }

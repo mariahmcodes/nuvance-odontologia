@@ -1,19 +1,13 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
-import goldTexture from "@/assets/gold-geometric-texture.png";
 
-/**
- * SectionWrapper — Envelope de seção com tons alternados.
- * tone: light | warm | dark | deep
- * texture: none | lines | grid | gold-overlay (marca d'água geométrica dourada)
- */
 interface SectionWrapperProps extends React.HTMLAttributes<HTMLElement> {
   tone?: "light" | "warm" | "dark" | "deep";
   texture?: "none" | "lines" | "grid" | "gold-overlay";
   containerClassName?: string;
 }
 
-const toneMap: Record<NonNullable<SectionWrapperProps["tone"]>, string> = {
+const toneMap = {
   light: "bg-ivory text-petrol-deep",
   warm: "bg-ivory-warm text-petrol-deep",
   dark: "bg-petrol text-ivory",
@@ -37,27 +31,31 @@ export default function SectionWrapper({
       ? "texture-gold-overlay"
       : "";
 
-  const textureStyle =
-    texture === "gold-overlay"
-      ? ({ ["--texture-gold-image" as string]: `url(${goldTexture})` } as React.CSSProperties)
-      : undefined;
-
   return (
     <section
       className={cn(
         "relative overflow-hidden py-20 md:py-28 lg:py-36",
+
         toneMap[tone],
+
+        "max-md:border-b max-md:border-black/8",
+        "max-md:shadow-[0_1px_0_rgba(0,0,0,0.04)]",
+
+        "md:shadow-[0_-1px_0_rgba(0,0,0,0.03)_inset]",
+
+        tone === "warm" && [
+          "max-md:bg-[hsl(38_32%_88%)]", 
+          "md:bg-[hsl(38_24%_93%)]"      
+        ],
+
         className
       )}
       {...props}
     >
       {textureClass && (
-        <div
-          aria-hidden
-          className={cn("absolute inset-0", textureClass)}
-          style={textureStyle}
-        />
+        <div aria-hidden className={cn("absolute inset-0", textureClass)} />
       )}
+
       <div className={cn("nuvance-container relative", containerClassName)}>
         {children}
       </div>

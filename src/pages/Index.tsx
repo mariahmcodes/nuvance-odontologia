@@ -1,5 +1,5 @@
 import Home from "./Home";
 
-const Index = () => <Home />;
-
-export default Index;
+export default function Index() {
+  return <Home />;
+}
