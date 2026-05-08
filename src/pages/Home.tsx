@@ -1,10 +1,11 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import HeroSection from "@/components/sections/HeroSection";
 import SocialProof from "@/components/sections/SocialProof";
 
+// Lazy sections
 const AboutSection = lazy(() => import("@/components/sections/AboutSection"));
 const VideoSection = lazy(() => import("@/components/sections/VideoSection"));
 const DoctorsSection = lazy(() => import("@/components/sections/DoctorsSection"));
@@ -28,6 +29,21 @@ function SectionSkeleton({ className = "h-[400px]" }: { className?: string }) {
 }
 
 export default function Home() {
+  const [showBelowFold, setShowBelowFold] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const id = (window as any).requestIdleCallback?.(() => {
+      setShowBelowFold(true);
+    }) || setTimeout(() => setShowBelowFold(true), 800);
+
+    return () => {
+      (window as any).cancelIdleCallback?.(id);
+      clearTimeout(id);
+    };
+  }, []);
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
@@ -36,32 +52,45 @@ export default function Home() {
         <HeroSection />
         <SocialProof />
 
-        <Suspense fallback={<SectionSkeleton className="h-[500px]" />}>
-          <AboutSection />
-        </Suspense>
+        {showBelowFold && (
+          <>
+            <Suspense fallback={<SectionSkeleton className="h-[500px]" />}>
+              <AboutSection />
+            </Suspense>
 
-        <Suspense fallback={<SectionSkeleton className="h-[600px]" />}>
-          <VideoSection />
-        </Suspense>
+            <Suspense fallback={<SectionSkeleton className="h-[600px]" />}>
+              <VideoSection />
+            </Suspense>
 
-        <Suspense fallback={<SectionSkeleton />}>
-          <DoctorsSection />
-          <TreatmentsSection />
-        </Suspense>
+            <Suspense fallback={<SectionSkeleton />}>
+              <DoctorsSection />
+            </Suspense>
 
-        <Suspense fallback={<SectionSkeleton className="h-[700px]" />}>
-          <CasesSection />
-        </Suspense>
+            <Suspense fallback={<SectionSkeleton />}>
+              <TreatmentsSection />
+            </Suspense>
 
-        <Suspense fallback={<SectionSkeleton />}>
-          <TestimonialsSection />
-          <StructureSection />
-        </Suspense>
+            <Suspense fallback={<SectionSkeleton className="h-[700px]" />}>
+              <CasesSection />
+            </Suspense>
 
-        <Suspense fallback={<SectionSkeleton className="h-[300px]" />}>
-          <CTASection />
-          <LocationSection />
-        </Suspense>
+            <Suspense fallback={<SectionSkeleton />}>
+              <TestimonialsSection />
+            </Suspense>
+
+            <Suspense fallback={<SectionSkeleton />}>
+              <StructureSection />
+            </Suspense>
+
+            <Suspense fallback={<SectionSkeleton className="h-[300px]" />}>
+              <CTASection />
+            </Suspense>
+
+            <Suspense fallback={<SectionSkeleton className="h-[300px]" />}>
+              <LocationSection />
+            </Suspense>
+          </>
+        )}
       </main>
 
       <Footer />

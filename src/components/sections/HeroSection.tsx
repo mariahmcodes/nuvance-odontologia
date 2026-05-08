@@ -8,9 +8,11 @@ export default function HeroSection() {
       className="relative min-h-[100svh] flex items-center overflow-hidden bg-petrol-deep"
       aria-labelledby="hero-title"
     >
+      {/* BACKGROUND LAYERS */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute inset-0 bg-gradient-to-br from-petrol-deep via-petrol to-petrol-deep" />
 
+        {/* texture otimizada */}
         <div
           aria-hidden="true"
           className="absolute inset-0 opacity-20 bg-[url('/gold-geometric-texture.webp')] bg-cover bg-center"

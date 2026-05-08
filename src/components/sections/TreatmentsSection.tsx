@@ -1,30 +1,9 @@
-import { Smile, Sparkles, Award, Heart } from "lucide-react";
 import SectionWrapper from "@/components/layout/SectionWrapper";
 import { NuvanceCard } from "@/components/ui/NuvanceCard";
 import Reveal from "@/components/Reveal";
 
-const treatments = [
-  {
-    icon: Smile,
-    title: "Implantes Dentários",
-    desc: "Reabilitação completa com técnica de carga imediata e precisão digital.",
-  },
-  {
-    icon: Sparkles,
-    title: "Facetas & Lentes",
-    desc: "Transformação estética minimamente invasiva, com naturalidade absoluta.",
-  },
-  {
-    icon: Award,
-    title: "Reabilitação Oral",
-    desc: "Devolvemos função, conforto e beleza ao seu sorriso por completo.",
-  },
-  {
-    icon: Heart,
-    title: "Odontologia Digital",
-    desc: "Planejamento 3D, scanner intraoral e previsibilidade em cada etapa.",
-  },
-];
+import { treatments, treatmentsSectionContent } from "@/constants/content";
+import { iconMap } from "@/components/ui/icons";
 
 export default function TreatmentsSection() {
   return (
@@ -32,20 +11,20 @@ export default function TreatmentsSection() {
       <header className="mb-14 text-center md:mb-20">
         <Reveal>
           <span className="eyebrow mb-5 block">
-            Tratamentos odontológicos
+            {treatmentsSectionContent.eyebrow}
           </span>
         </Reveal>
 
         <Reveal delay={0.1}>
           <h2 className="font-display text-3xl leading-tight text-petrol-deep md:text-5xl">
-            Soluções pensadas pra cada etapa do seu sorriso
+            {treatmentsSectionContent.title}
           </h2>
         </Reveal>
       </header>
 
       <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4 md:gap-6">
         {treatments.map((t, i) => {
-          const Icon = t.icon;
+          const Icon = iconMap[t.icon as keyof typeof iconMap];
 
           return (
             <Reveal key={t.title} delay={0.3 + i * 0.08}>

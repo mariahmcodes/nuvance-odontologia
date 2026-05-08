@@ -66,18 +66,17 @@ export default function CasesCarousel({ items }: CasesCarouselProps) {
                 {c.type === "video" ? (
                   <video
                     src={c.src}
-                    autoPlay
-                    loop
                     muted
                     playsInline
+                    preload="metadata"
                     className="w-full h-full object-cover"
                   />
                 ) : (
                   <img
                     src={c.src}
                     alt={c.title}
-                    className="w-full h-full object-cover"
                     loading="lazy"
+                    className="w-full h-full object-cover"
                   />
                 )}
               </div>
@@ -88,11 +87,7 @@ export default function CasesCarousel({ items }: CasesCarouselProps) {
 
                 <div className="flex gap-1 mb-3">
                   {Array.from({ length: 5 }).map((_, j) => (
-                    <Star
-                      key={j}
-                      size={12}
-                      className="fill-gold text-gold"
-                    />
+                    <Star key={j} size={12} className="fill-gold text-gold" />
                   ))}
                 </div>
 

@@ -8,19 +8,23 @@ import { cn } from "@/lib/utils";
 export default function TestimonialsSection() {
   const { video } = testimonialsContent;
 
-  const [isStarted, setIsStarted] = useState(false);
-
+  const [isPlaying, setIsPlaying] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  const handlePlay = async () => {
+  const togglePlay = async () => {
     if (!videoRef.current) return;
 
+    const videoEl = videoRef.current;
+
     try {
-      videoRef.current.muted = false;
-
-      await videoRef.current.play();
-
-      setIsStarted(true);
+      if (videoEl.paused) {
+        videoEl.muted = false;
+        await videoEl.play();
+        setIsPlaying(true);
+      } else {
+        videoEl.pause();
+        setIsPlaying(false);
+      }
     } catch (error) {
       console.error(error);
     }
@@ -58,40 +62,26 @@ export default function TestimonialsSection() {
                 "md:rounded-[3rem] md:border-[10px]",
                 "group cursor-pointer"
               )}
-              onClick={handlePlay}
+              onClick={togglePlay}
             >
               <video
                 ref={videoRef}
                 src={`${video.src}#t=0.001`}
                 className={cn(
-                  `
-                    absolute inset-0
-                    h-full w-full
-                    object-cover
-                    scale-[1.03]
-                    [transform-origin:center]
-                    transition-all duration-700
-                  `,
-                  !isStarted
+                  "absolute inset-0 h-full w-full object-cover scale-[1.03] transition-all duration-700",
+                  !isPlaying
                     ? "opacity-80 scale-[1.06]"
                     : "opacity-100 scale-[1.03]"
                 )}
-                controls={isStarted}
+                controls={isPlaying}
                 playsInline
-                preload="auto"
+                preload="metadata"
                 muted
               />
 
-              {!isStarted && (
+              {!isPlaying && (
                 <>
-                  <div
-                    className="
-                      absolute inset-0 z-20
-                      bg-black/10
-                      transition-colors duration-300
-                      group-hover:bg-black/20
-                    "
-                  />
+                  <div className="absolute inset-0 z-20 bg-black/10 transition-colors duration-300 group-hover:bg-black/20" />
 
                   <div className="absolute inset-0 z-30 flex items-center justify-center">
                     <div className="transform transition-transform duration-300 group-hover:scale-110">
@@ -104,12 +94,7 @@ export default function TestimonialsSection() {
           </Reveal>
 
           <div
-            className="
-              absolute inset-0 -z-10
-              scale-125 rounded-full
-              bg-gold/15 blur-[80px]
-              opacity-40
-            "
+            className="absolute inset-0 -z-10 scale-125 rounded-full bg-gold/15 blur-[80px] opacity-40"
             aria-hidden="true"
           />
         </div>

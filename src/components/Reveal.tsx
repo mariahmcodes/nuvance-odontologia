@@ -15,15 +15,15 @@ export default function Reveal({
 }: RevealProps) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 12 }}
+      initial={{ opacity: 0, y: 10 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-60px 0px" }}
+      viewport={{ once: true, amount: 0.2 }}
       transition={{
         delay,
-        duration: 0.55,
-        ease: [0.22, 1, 0.36, 1],
+        duration: 0.35,
+        ease: "easeOut",
       }}
-      className={cn("will-change-transform", className)}
+      className={cn("transform-gpu will-change-transform", className)}
       {...props}
     >
       {children}

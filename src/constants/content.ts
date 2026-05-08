@@ -1,5 +1,3 @@
-import { Smile, Sparkles, Award, Heart } from "lucide-react";
-
 export const heroContent = {
   eyebrow: "Odontologia premium",
 
@@ -65,7 +63,7 @@ export const videoSectionContent = {
   video: {
     ariaLabel: "Vídeo institucional em formato vertical com áudio apresentando a clínica Nuvance",
     placeholder: "Clique para assistir com som",
-    src: "nKs2bcq_BFY", // ID extraído do link
+    src: "nKs2bcq_BFY",
   },
 };
 
@@ -95,24 +93,29 @@ export const doctors = [
   },
 ];
 
+export const treatmentsSectionContent = {
+  eyebrow: "Tratamentos odontológicos",
+  title: "Soluções pensadas pra cada etapa do seu sorriso",
+};
+
 export const treatments = [
   {
-    icon: Smile,
+    icon: "smile",
     title: "Implantes Dentários",
     desc: "Reabilitação completa com técnica de carga imediata e precisão digital.",
   },
   {
-    icon: Sparkles,
+    icon: "sparkles",
     title: "Facetas & Lentes",
     desc: "Transformação estética minimamente invasiva, com naturalidade absoluta.",
   },
   {
-    icon: Award,
+    icon: "award",
     title: "Reabilitação Oral",
     desc: "Devolvemos função, conforto e beleza ao seu sorriso por completo.",
   },
   {
-    icon: Heart,
+    icon: "heart",
     title: "Odontologia Digital",
     desc: "Planejamento 3D, scanner intraoral e previsibilidade em cada etapa.",
   },
