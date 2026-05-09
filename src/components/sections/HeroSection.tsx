@@ -8,14 +8,16 @@ export default function HeroSection() {
       className="relative min-h-[100svh] flex items-center overflow-hidden bg-petrol-deep"
       aria-labelledby="hero-title"
     >
-      {/* BACKGROUND LAYERS */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute inset-0 bg-gradient-to-br from-petrol-deep via-petrol to-petrol-deep" />
 
-        {/* texture otimizada */}
-        <div
+        <img
+          src="/gold-geometric-texture.webp"
+          alt=""
           aria-hidden="true"
-          className="absolute inset-0 opacity-20 bg-[url('/gold-geometric-texture.webp')] bg-cover bg-center"
+          fetchPriority="high"
+          loading="eager"
+          className="absolute inset-0 h-full w-full object-cover opacity-20"
         />
 
         <div className="absolute inset-0 bg-black/20" />
@@ -23,7 +25,6 @@ export default function HeroSection() {
 
       <div className="nuvance-container relative z-10 pt-28 md:pt-32 pb-16 md:pb-20">
         <div className="max-w-3xl">
-
           <span className="eyebrow text-gold mb-6 inline-block">
             {heroContent.eyebrow}
           </span>
@@ -43,7 +44,6 @@ export default function HeroSection() {
           </p>
 
           <div className="flex flex-wrap gap-4">
-
             <NuvanceButton variant="gold" size="md" asChild>
               <a
                 href={heroContent.whatsappLink}
@@ -63,7 +63,6 @@ export default function HeroSection() {
                 {heroContent.cta.secondary}
               </a>
             </NuvanceButton>
-
           </div>
         </div>
       </div>

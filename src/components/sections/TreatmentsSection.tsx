@@ -15,7 +15,7 @@ export default function TreatmentsSection() {
           </span>
         </Reveal>
 
-        <Reveal delay={0.1}>
+        <Reveal delay={0.05}>
           <h2 className="font-display text-3xl leading-tight text-petrol-deep md:text-5xl">
             {treatmentsSectionContent.title}
           </h2>
@@ -27,7 +27,7 @@ export default function TreatmentsSection() {
           const Icon = iconMap[t.icon as keyof typeof iconMap];
 
           return (
-            <Reveal key={t.title} delay={0.3 + i * 0.08}>
+            <Reveal key={t.title} delay={0.1 + i * 0.05}>
               <div className="group h-full">
                 <NuvanceCard
                   variant="light"

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import SectionWrapper from "@/components/layout/SectionWrapper";
 import Reveal from "@/components/Reveal";
 import { PlayButton } from "@/components/ui/PlayButton";
@@ -13,23 +13,7 @@ export default function VideoSection() {
 
   const embedUrl =
     `https://www.youtube-nocookie.com/embed/${videoId}` +
-    `?autoplay=1&rel=0&modestbranding=1&playsinline=1&controls=1`;
-
-  useEffect(() => {
-    const links = [
-      "https://www.youtube-nocookie.com",
-      "https://www.youtube.com",
-      "https://i.ytimg.com",
-    ];
-
-    links.forEach((href) => {
-      const el = document.createElement("link");
-      el.rel = "preconnect";
-      el.href = href;
-      el.crossOrigin = "";
-      document.head.appendChild(el);
-    });
-  }, []);
+    `?autoplay=1&rel=0&modestbranding=1&playsinline=1&controls=1&mute=0`;
 
   return (
     <SectionWrapper
@@ -55,11 +39,10 @@ export default function VideoSection() {
         <div className="relative mx-auto max-w-[380px]">
           <Reveal delay={0.15}>
             <div className="relative aspect-[9/16] overflow-hidden rounded-[2.5rem] border-[6px] border-petrol-deep bg-black shadow-2xl">
-
-              {/* THUMB nunca some até iframe estar OK */}
+            
               <img
                 src={thumbUrl}
-                alt=""
+                alt="Thumbnail do vídeo institucional"
                 className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-500 ${
                   loaded ? "opacity-0" : "opacity-100"
                 }`}
@@ -73,10 +56,9 @@ export default function VideoSection() {
                   allow="autoplay; encrypted-media; picture-in-picture"
                   allowFullScreen
                   onLoad={() => {
-                    // garante que iframe já pintou algo
-                    setTimeout(() => setLoaded(true), 150);
+                    setTimeout(() => setLoaded(true), 200);
                   }}
-                  className={`absolute inset-0 h-full w-full transition-opacity duration-500 ${
+                  className={`absolute inset-0 h-full w-full transition-opacity duration-500 z-10 ${
                     loaded ? "opacity-100" : "opacity-0"
                   }`}
                 />
@@ -86,9 +68,11 @@ export default function VideoSection() {
                 <button
                   onClick={() => setStarted(true)}
                   aria-label={videoSectionContent.video.ariaLabel}
-                  className="absolute inset-0 flex items-center justify-center"
+                  className="absolute inset-0 flex items-center justify-center z-20 group"
                 >
-                  <PlayButton />
+                  <div className="transform transition-transform duration-300 group-hover:scale-110 group-active:scale-95">
+                    <PlayButton />
+                  </div>
                 </button>
               )}
             </div>

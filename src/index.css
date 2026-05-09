@@ -49,6 +49,8 @@
     font-family: var(--font-sans);
     line-height: 1.65;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
 
   h1, h2, h3, h4 {
@@ -76,18 +78,6 @@
       font-size: 0.95rem;
       line-height: 1.7;
     }
-
-    li {
-      line-height: 1.55;
-    }
-
-    ul {
-      line-height: 1.6;
-    }
-
-    p + p {
-      margin-top: 0.75rem;
-    }
   }
 }
 
@@ -110,22 +100,27 @@
   .texture-gold-overlay {
     position: relative;
     pointer-events: none;
-    z-index: 1;
+  }
+
+  .texture-gold-overlay {
+    position: relative;
   }
 
   .texture-gold-overlay::before {
     content: "";
     @apply absolute inset-0 pointer-events-none;
-    background-image: var(--texture-gold-image);
+
+    background-image: url('/gold-geometric-texture.webp');
     background-size: cover;
     background-position: center;
     mix-blend-mode: screen;
-    opacity: 0.28;
-    z-index: -1;
+    opacity: 0.2;
+    z-index: 0;
+    will-change: opacity;
   }
 
   .texture-gold-overlay-strong::before {
-    opacity: 0.45;
+    opacity: 0.4;
   }
 
   .story-link {
