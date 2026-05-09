@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { MapPin, Navigation } from "lucide-react";
 
 import SectionWrapper from "@/components/layout/SectionWrapper";
@@ -7,39 +8,27 @@ import { NuvanceButton } from "@/components/ui/NuvanceButton";
 import { locationContent } from "@/constants/content";
 
 export default function LocationSection() {
+  const [loadMap, setLoadMap] = useState(false);
+
   const mapsLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
     locationContent.mapQuery
   )}`;
 
   const embedSrc = `https://www.google.com/maps?q=${locationContent.mapEmbed}&output=embed`;
 
+  useEffect(() => {
+    const timer = setTimeout(() => setLoadMap(true), 1200);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <SectionWrapper id="localizacao" tone="light" className="pb-20 md:pb-32">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Dentist",
-            name: locationContent.name,
-            address: {
-              "@type": "PostalAddress",
-              streetAddress: locationContent.address.street,
-              addressLocality: locationContent.address.city,
-              addressRegion: locationContent.address.state,
-              postalCode: locationContent.address.zip,
-              addressCountry: locationContent.address.country,
-            },
-            telephone: locationContent.phone,
-          }),
-        }}
-      />
-
       <section
         aria-labelledby="location-title"
         className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start"
       >
         <div className="space-y-10">
+
           <div>
             <Reveal>
               <span className="eyebrow mb-5 block text-gold-deep">
@@ -61,24 +50,27 @@ export default function LocationSection() {
             </Reveal>
           </div>
 
+          {/* MAP MOBILE */}
           <Reveal delay={0.12}>
-            <figure className="relative w-full aspect-square lg:hidden rounded-[2rem] overflow-hidden border border-white/10 shadow-elegant">
-              <figcaption className="sr-only">
-                Mapa da localização Nuvance
-              </figcaption>
+            <figure className="relative w-full aspect-square lg:hidden rounded-[2rem] overflow-hidden border border-white/10 shadow-elegant bg-petrol-deep/5">
 
-              <div className="absolute inset-0 bg-petrol-deep/10 md:bg-petrol-deep/5 pointer-events-none z-10" />
+              {!loadMap ? (
+                <div className="absolute inset-0 flex items-center justify-center text-gold/60 text-sm">
+                  Carregando mapa...
+                </div>
+              ) : (
+                <iframe
+                  title="Mapa da localização"
+                  src={embedSrc}
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  className="grayscale-[0.2] contrast-[1.1]"
+                />
+              )}
 
-              <iframe
-                title="Mapa da localização da clínica Nuvance"
-                src={embedSrc}
-                width="100%"
-                height="100%"
-                style={{ border: 0 }}
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                className="grayscale-[0.2] contrast-[1.1]"
-              />
             </figure>
           </Reveal>
 
@@ -115,12 +107,7 @@ export default function LocationSection() {
 
             <Reveal delay={0.32}>
               <NuvanceButton variant="petrol" size="md" asChild>
-                <a
-                  href={mapsLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center"
-                >
+                <a href={mapsLink} target="_blank" rel="noopener noreferrer">
                   <Navigation size={18} className="mr-2" />
                   Abrir no GPS
                 </a>
@@ -129,26 +116,30 @@ export default function LocationSection() {
           </div>
         </div>
 
+        {/* DESKTOP MAP */}
         <Reveal delay={0.1} className="hidden lg:block">
-          <figure className="relative w-full h-[500px] rounded-[2rem] overflow-hidden border border-white/10 shadow-elegant">
-            <figcaption className="sr-only">
-              Mapa da localização Nuvance
-            </figcaption>
+          <figure className="relative w-full h-[500px] rounded-[2rem] overflow-hidden border border-white/10 shadow-elegant bg-petrol-deep/5">
 
-            <div className="absolute inset-0 bg-petrol-deep/5 md:bg-petrol-deep/5 pointer-events-none z-10" />
+            {!loadMap ? (
+              <div className="absolute inset-0 flex items-center justify-center text-gold/60">
+                Carregando mapa...
+              </div>
+            ) : (
+              <iframe
+                title="Mapa da localização"
+                src={embedSrc}
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                className="grayscale-[0.2] contrast-[1.1]"
+              />
+            )}
 
-            <iframe
-              title="Mapa da localização da clínica Nuvance"
-              src={embedSrc}
-              width="100%"
-              height="100%"
-              style={{ border: 0 }}
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              className="grayscale-[0.2] contrast-[1.1]"
-            />
           </figure>
         </Reveal>
+
       </section>
     </SectionWrapper>
   );

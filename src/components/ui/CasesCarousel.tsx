@@ -33,7 +33,6 @@ export default function CasesCarousel({ items }: CasesCarouselProps) {
 
   useEffect(() => {
     if (!emblaApi) return;
-
     onSelect();
     emblaApi.on("select", onSelect);
     emblaApi.on("reInit", onSelect);
@@ -41,7 +40,6 @@ export default function CasesCarousel({ items }: CasesCarouselProps) {
 
   return (
     <div className="relative">
-
       <div className="overflow-hidden" ref={emblaRef}>
         <div className="flex gap-6 px-4 md:px-0">
 
@@ -57,7 +55,6 @@ export default function CasesCarousel({ items }: CasesCarouselProps) {
                 border border-gold/15
                 bg-petrol-soft/30
                 group
-                will-change-transform
               "
               aria-label={`Antes e depois — ${c.title}`}
             >
@@ -65,12 +62,15 @@ export default function CasesCarousel({ items }: CasesCarouselProps) {
               <div className="absolute inset-0 z-0">
                 {c.type === "video" ? (
                   <video
-                    src={c.src}
-                    muted
-                    playsInline
-                    preload="metadata"
-                    className="w-full h-full object-cover"
-                  />
+                  src={c.src}
+                  muted
+                  playsInline
+                  loop
+                  autoPlay
+                  preload="auto"
+                  poster={c.src + "#t=0.1"}
+                  className="w-full h-full object-cover bg-black"
+                />
                 ) : (
                   <img
                     src={c.src}
@@ -84,7 +84,6 @@ export default function CasesCarousel({ items }: CasesCarouselProps) {
               <div className="absolute inset-0 bg-gradient-to-t from-petrol-deep via-petrol-deep/20 to-transparent z-[2]" />
 
               <div className="absolute inset-x-0 bottom-0 p-6 z-10">
-
                 <div className="flex gap-1 mb-3">
                   {Array.from({ length: 5 }).map((_, j) => (
                     <Star key={j} size={12} className="fill-gold text-gold" />
@@ -137,7 +136,6 @@ export default function CasesCarousel({ items }: CasesCarouselProps) {
         </button>
 
       </div>
-
     </div>
   );
 }
