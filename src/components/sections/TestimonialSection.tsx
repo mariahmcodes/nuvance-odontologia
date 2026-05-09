@@ -19,6 +19,8 @@ export default function TestimonialsSection() {
     try {
       if (videoEl.paused) {
         videoEl.muted = false;
+        videoEl.preload = "auto";
+
         await videoEl.play();
         setIsPlaying(true);
       } else {
@@ -75,7 +77,7 @@ export default function TestimonialsSection() {
                 )}
                 controls={isPlaying}
                 playsInline
-                preload="metadata"
+                preload="none"
                 muted
               />
 

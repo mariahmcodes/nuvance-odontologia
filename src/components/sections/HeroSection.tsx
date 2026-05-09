@@ -16,7 +16,7 @@ export default function HeroSection() {
           alt=""
           aria-hidden="true"
           fetchPriority="high"
-          loading="eager"
+          decoding="async"
           className="absolute inset-0 h-full w-full object-cover opacity-20"
         />
 

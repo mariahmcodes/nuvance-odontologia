@@ -1,4 +1,4 @@
-import { motion, HTMLMotionProps } from "framer-motion";
+import { m, HTMLMotionProps } from "framer-motion";
 import { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
@@ -14,7 +14,7 @@ export default function Reveal({
   ...props
 }: RevealProps) {
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 10 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
@@ -27,6 +27,6 @@ export default function Reveal({
       {...props}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }

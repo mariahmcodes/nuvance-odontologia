@@ -39,14 +39,16 @@ export default function VideoSection() {
         <div className="relative mx-auto max-w-[380px]">
           <Reveal delay={0.15}>
             <div className="relative aspect-[9/16] overflow-hidden rounded-[2.5rem] border-[6px] border-petrol-deep bg-black shadow-2xl">
-            
+
               <img
                 src={thumbUrl}
                 alt="Thumbnail do vídeo institucional"
+                loading="eager"
+                fetchPriority="high"
+                decoding="async"
                 className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-500 ${
                   loaded ? "opacity-0" : "opacity-100"
                 }`}
-                loading="lazy"
               />
 
               {started && (
@@ -55,8 +57,9 @@ export default function VideoSection() {
                   title={videoSectionContent.video.ariaLabel}
                   allow="autoplay; encrypted-media; picture-in-picture"
                   allowFullScreen
+                  loading="lazy"
                   onLoad={() => {
-                    setTimeout(() => setLoaded(true), 200);
+                    requestAnimationFrame(() => setLoaded(true));
                   }}
                   className={`absolute inset-0 h-full w-full transition-opacity duration-500 z-10 ${
                     loaded ? "opacity-100" : "opacity-0"

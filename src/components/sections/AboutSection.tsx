@@ -19,10 +19,9 @@ export default function AboutSection() {
               <img
                 src="/images/about/team.webp"
                 alt={aboutContent.mediaLabel}
-                loading="eager"
-                fetchPriority="high"
+                loading="lazy"
                 decoding="async"
-                className="h-full w-full object-cover"
+                className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
 
               <div className="absolute bottom-0 right-0 bg-gold text-petrol-deep px-4 py-2.5 rounded-tl-[1.5rem] shadow-elegant flex items-center gap-2 z-10">
@@ -42,8 +41,10 @@ export default function AboutSection() {
                 <img
                   src="/images/about/team.webp"
                   alt={aboutContent.mediaLabel}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  loading="lazy"
+                  loading="eager"
+                  fetchPriority="high"
+                  decoding="async"
+                  className="h-full w-full object-cover"
                 />
 
                 <div className="absolute bottom-0 right-0 bg-gold text-petrol-deep px-5 py-3 md:px-7 md:py-3.5 rounded-tl-[2rem] shadow-elegant z-30 flex items-center gap-2 max-w-[90%]">
