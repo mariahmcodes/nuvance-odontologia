@@ -1,7 +1,10 @@
-import { useState, useRef } from "react";
+import { useRef, useState } from "react";
+
 import SectionWrapper from "@/components/layout/SectionWrapper";
 import Reveal from "@/components/Reveal";
+
 import { PlayButton } from "@/components/ui/PlayButton";
+
 import { testimonialsContent } from "@/constants/content";
 import { cn } from "@/lib/utils";
 
@@ -9,22 +12,18 @@ export default function TestimonialsSection() {
   const { video } = testimonialsContent;
 
   const [isPlaying, setIsPlaying] = useState(false);
+
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const togglePlay = async () => {
     if (!videoRef.current) return;
 
-    const videoEl = videoRef.current;
-
     try {
-      if (videoEl.paused) {
-        videoEl.muted = false;
-        videoEl.preload = "auto";
-
-        await videoEl.play();
+      if (videoRef.current.paused) {
+        await videoRef.current.play();
         setIsPlaying(true);
       } else {
-        videoEl.pause();
+        videoRef.current.pause();
         setIsPlaying(false);
       }
     } catch (error) {
@@ -38,7 +37,10 @@ export default function TestimonialsSection() {
       tone="warm"
       className="overflow-hidden py-24 md:py-32"
     >
-      <div className="nuvance-container flex flex-col items-center">
+      <div className="
+        nuvance-container
+        flex flex-col items-center
+      ">
         <header className="mb-14 text-center md:mb-20">
           <Reveal>
             <span className="eyebrow mb-5 block text-gold-deep">
@@ -47,13 +49,24 @@ export default function TestimonialsSection() {
           </Reveal>
 
           <Reveal delay={0.1}>
-            <h2 className="font-display text-4xl leading-tight text-petrol-deep md:text-5xl">
+            <h2
+              className="
+                font-display
+                text-4xl md:text-5xl
+                leading-tight
+                text-petrol-deep
+              "
+            >
               {testimonialsContent.title}
             </h2>
           </Reveal>
         </header>
 
-        <div className="relative w-full max-w-[320px] md:max-w-[380px]">
+        <div className="
+          relative
+          w-full
+          max-w-[320px] md:max-w-[380px]
+        ">
           <Reveal delay={0.2}>
             <div
               className={cn(
@@ -61,48 +74,80 @@ export default function TestimonialsSection() {
                 "overflow-hidden rounded-[2.5rem]",
                 "border-[6px] border-petrol-deep",
                 "bg-black shadow-2xl",
-                "md:rounded-[3rem] md:border-[10px]",
-                "group cursor-pointer"
+                "md:rounded-[3rem] md:border-[10px]"
               )}
-              onClick={togglePlay}
             >
               <video
                 ref={videoRef}
-                src={`${video.src}#t=0.001`}
-                className={cn(
-                  "absolute inset-0 h-full w-full object-cover scale-[1.03] transition-all duration-700",
-                  !isPlaying
-                    ? "opacity-80 scale-[1.06]"
-                    : "opacity-100 scale-[1.03]"
-                )}
-                controls={isPlaying}
+                src={video.src}
+                poster={video.poster}
+                aria-label={video.ariaLabel}
+                width={720}
+                height={1280}
                 playsInline
                 preload="none"
-                muted
+                controls={isPlaying}
+                className={cn(
+                  "absolute inset-0",
+                  "h-full w-full object-cover",
+                  "transition-all duration-700",
+                  !isPlaying
+                    ? "scale-[1.05] opacity-85"
+                    : "scale-100 opacity-100"
+                )}
               />
 
               {!isPlaying && (
-                <>
-                  <div className="absolute inset-0 z-20 bg-black/10 transition-colors duration-300 group-hover:bg-black/20" />
-
-                  <div className="absolute inset-0 z-30 flex items-center justify-center">
-                    <div className="transform transition-transform duration-300 group-hover:scale-110">
-                      <PlayButton />
-                    </div>
+                <button
+                  type="button"
+                  onClick={togglePlay}
+                  aria-label="Reproduzir vídeo de depoimento"
+                  className="
+                    absolute inset-0 z-30
+                    flex items-center justify-center
+                    cursor-pointer
+                    bg-black/10
+                    transition-colors duration-300
+                    hover:bg-black/20
+                  "
+                >
+                  <div
+                    className="
+                      transition-transform duration-300
+                      hover:scale-110
+                    "
+                  >
+                    <PlayButton />
                   </div>
-                </>
+                </button>
               )}
             </div>
           </Reveal>
 
           <div
-            className="absolute inset-0 -z-10 scale-125 rounded-full bg-gold/15 blur-[80px] opacity-40"
             aria-hidden="true"
+            className="
+              absolute inset-0 -z-10
+              scale-125
+              rounded-full
+              bg-gold/15
+              opacity-40
+              blur-[80px]
+            "
           />
         </div>
 
         <Reveal delay={0.3}>
-          <p className="mt-10 text-[10px] font-black uppercase tracking-[0.4em] text-gold-deep">
+          <p
+            className="
+              mt-10
+              text-[10px]
+              font-black
+              uppercase
+              tracking-[0.4em]
+              text-gold-deep
+            "
+          >
             Nuvance Experience
           </p>
         </Reveal>

@@ -1,65 +1,130 @@
 import { useState } from "react";
+
+import {
+  ChevronLeft,
+  ChevronRight,
+} from "lucide-react";
+
 import SectionWrapper from "@/components/layout/SectionWrapper";
 import Reveal from "@/components/Reveal";
+
 import { structureContent } from "@/constants/content";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export default function StructureSection() {
   const [index, setIndex] = useState(0);
 
-  const next = () =>
-    setIndex((prev) => (prev + 1) % structureContent.gallery.length);
+  const currentImage = structureContent.gallery[index];
 
-  const prev = () =>
-    setIndex(
-      (prev) =>
-        (prev - 1 + structureContent.gallery.length) %
-        structureContent.gallery.length
+  const next = () => {
+    setIndex((prev) =>
+      (prev + 1) % structureContent.gallery.length
     );
+  };
+
+  const prev = () => {
+    setIndex((prev) =>
+      (prev - 1 + structureContent.gallery.length) %
+      structureContent.gallery.length
+    );
+  };
 
   function Carousel() {
     return (
       <div className="relative group">
         <Reveal>
-          <div className="relative aspect-[4/3] md:aspect-video rounded-[2.5rem] overflow-hidden border border-white/10 shadow-elegant bg-petrol-soft/10">
+          <div
+            className="
+              relative
+              aspect-[4/3] md:aspect-video
+              overflow-hidden
+              rounded-[2.5rem]
+              border border-white/10
+              bg-petrol-soft/10
+              shadow-elegant
+            "
+          >
+            <img
+              key={currentImage.src}
+              src={currentImage.src}
+              alt={currentImage.label}
+              width={1024}
+              height={576}
+              loading="lazy"
+              decoding="async"
+              className="
+                h-full w-full
+                object-cover
+                transition-opacity duration-500
+              "
+            />
 
-            {structureContent.gallery.map((img, i) => (
-              <img
-                key={img.src}
-                src={img.src}
-                alt={img.label}
-                className={`
-                  absolute inset-0 w-full h-full object-cover transition-all duration-700
-                  ${index === i ? "opacity-100" : "opacity-0 pointer-events-none"}
-                `}
-                loading={i === 0 ? "eager" : "lazy"}
-              />
-            ))}
-
-            <div className="absolute inset-0 flex items-center justify-between px-3 md:px-6">
+            <div
+              className="
+                absolute inset-0
+                flex items-center justify-between
+                px-3 md:px-6
+              "
+            >
               <button
+                type="button"
                 onClick={prev}
-                className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-black/20 backdrop-blur border border-white/10 flex items-center justify-center text-white hover:bg-black/40 transition"
-                aria-label="Anterior"
+                aria-label="Imagem anterior"
+                className="
+                  flex items-center justify-center
+                  w-10 h-10 md:w-12 md:h-12
+                  rounded-full
+                  border border-white/10
+                  bg-black/20
+                  text-white
+                  backdrop-blur
+                  transition
+                  hover:bg-black/40
+                "
               >
                 <ChevronLeft size={20} />
               </button>
 
               <button
+                type="button"
                 onClick={next}
-                className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-black/20 backdrop-blur border border-white/10 flex items-center justify-center text-white hover:bg-black/40 transition"
-                aria-label="Próximo"
+                aria-label="Próxima imagem"
+                className="
+                  flex items-center justify-center
+                  w-10 h-10 md:w-12 md:h-12
+                  rounded-full
+                  border border-white/10
+                  bg-black/20
+                  text-white
+                  backdrop-blur
+                  transition
+                  hover:bg-black/40
+                "
               >
                 <ChevronRight size={20} />
               </button>
             </div>
 
-            <div className="absolute bottom-0 right-0 bg-gold text-petrol-deep px-5 py-3 rounded-tl-[2rem] shadow-elegant">
-              <span className="text-[10px] uppercase tracking-[0.2em] font-black">
-                {structureContent.gallery[index].label}
+            <div
+              className="
+                absolute bottom-0 right-0
+                rounded-tl-[2rem]
+                bg-gold
+                px-5 py-3
+                text-petrol-deep
+                shadow-elegant
+              "
+            >
+              <span
+                className="
+                  text-[10px]
+                  font-black
+                  uppercase
+                  tracking-[0.2em]
+                "
+              >
+                {currentImage.label}
               </span>
             </div>
-
           </div>
         </Reveal>
       </div>
@@ -67,13 +132,21 @@ export default function StructureSection() {
   }
 
   return (
-    <SectionWrapper id="estrutura" tone="light">
-      <div className="grid lg:grid-cols-2 gap-10 md:gap-12 lg:gap-16 items-center">
+    <SectionWrapper
+      id="estrutura"
+      tone="light"
+    >
+      <div
+        className="
+          grid lg:grid-cols-2
+          items-center
+          gap-10 md:gap-12 lg:gap-16
+        "
+      >
 
         {/* TEXTO */}
         <div>
 
-          {/* HEADER */}
           <div>
             <Reveal>
               <span className="eyebrow mb-5 block">
@@ -82,7 +155,15 @@ export default function StructureSection() {
             </Reveal>
 
             <Reveal delay={0.08}>
-              <h2 className="font-display text-petrol-deep mb-6 text-4xl md:text-5xl leading-[1.1]">
+              <h2
+                className="
+                  font-display
+                  text-4xl md:text-5xl
+                  leading-[1.1]
+                  text-petrol-deep
+                  mb-6
+                "
+              >
                 {structureContent.title}
               </h2>
             </Reveal>
@@ -93,23 +174,50 @@ export default function StructureSection() {
             <Carousel />
           </div>
 
-          {/* TEXTO RESTANTE */}
           <Reveal delay={0.16}>
-            <p className="text-petrol-deep/75 mb-8 leading-relaxed text-base md:text-lg">
+            <p
+              className="
+                text-base md:text-lg
+                leading-relaxed
+                text-petrol-deep/75
+                mb-8
+              "
+            >
               {structureContent.description}
             </p>
           </Reveal>
 
           <Reveal delay={0.24}>
-            <ul className="space-y-4" role="list">
+            <ul
+              role="list"
+              className="space-y-4"
+            >
               {structureContent.features.map((item) => (
                 <li
                   key={item}
-                  className="flex items-start gap-4 text-petrol-deep/85 font-medium"
+                  className="
+                    flex items-start gap-4
+                    font-medium
+                    text-petrol-deep/85
+                  "
                 >
-                  <span className="h-2 w-2 rounded-full bg-gold shrink-0 mt-2" />
+                  <span
+                    aria-hidden="true"
+                    className="
+                      h-2 w-2
+                      rounded-full
+                      bg-gold
+                      shrink-0
+                      mt-2
+                    "
+                  />
 
-                  <span className="text-sm md:text-base leading-snug">
+                  <span
+                    className="
+                      text-sm md:text-base
+                      leading-snug
+                    "
+                  >
                     {item}
                   </span>
                 </li>

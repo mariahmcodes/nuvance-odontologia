@@ -1,5 +1,68 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
 @import "tailwindcss";
+
+@font-face {
+  font-family: "Cormorant Garamond";
+  src: url("/fonts/cormorant-garamond-v21-latin-regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Cormorant Garamond";
+  src: url("/fonts/cormorant-garamond-v21-latin-500.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Cormorant Garamond";
+  src: url("/fonts/cormorant-garamond-v21-latin-600.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Cormorant Garamond";
+  src: url("/fonts/cormorant-garamond-v21-latin-700.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/inter-v20-latin-regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/inter-v20-latin-500.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/inter-v20-latin-600.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/inter-v20-latin-700.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
 
 @theme {
   --color-petrol: hsl(196 64% 18%);
@@ -22,7 +85,7 @@
 
   --shadow-soft: 0 10px 40px -18px hsla(196, 64%, 18%, 0.18);
 
-  --texture-gold-image: url('/gold-geometric-texture.webp');
+  --texture-gold-image: url("/gold-geometric-texture.webp");
 }
 
 @layer base {
@@ -43,25 +106,48 @@
     border-color: var(--border-color);
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     background-color: var(--background);
     color: var(--foreground);
     font-family: var(--font-sans);
     line-height: 1.65;
+
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+
     text-rendering: optimizeLegibility;
   }
 
-  h1, h2, h3, h4 {
+  img,
+  picture,
+  video,
+  canvas,
+  svg {
+    display: block;
+    max-width: 100%;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
     font-family: var(--font-display);
     font-weight: 500;
     letter-spacing: -0.015em;
     line-height: 1.1;
   }
 
-  h1 { font-size: clamp(3rem, 8vw, 4.5rem); }
-  h2 { font-size: clamp(2.25rem, 6vw, 3rem); }
+  h1 {
+    font-size: clamp(3rem, 8vw, 4.5rem);
+  }
+
+  h2 {
+    font-size: clamp(2.25rem, 6vw, 3rem);
+  }
 
   @media (max-width: 768px) {
     h1 {
@@ -88,18 +174,16 @@
 
   .eyebrow {
     @apply inline-flex items-center gap-3 text-xs font-medium uppercase tracking-[0.25em];
+
     color: var(--color-gold);
   }
 
   .eyebrow::before {
     content: "";
-    @apply h-px w-7;
-    background-color: var(--color-gold);
-  }
 
-  .texture-gold-overlay {
-    position: relative;
-    pointer-events: none;
+    @apply h-px w-7;
+
+    background-color: var(--color-gold);
   }
 
   .texture-gold-overlay {
@@ -108,15 +192,17 @@
 
   .texture-gold-overlay::before {
     content: "";
+
     @apply absolute inset-0 pointer-events-none;
 
-    background-image: url('/gold-geometric-texture.webp');
+    background-image: url("/gold-geometric-texture.webp");
     background-size: cover;
     background-position: center;
+
     mix-blend-mode: screen;
     opacity: 0.2;
+
     z-index: 0;
-    will-change: opacity;
   }
 
   .texture-gold-overlay-strong::before {
@@ -129,13 +215,16 @@
 
   .story-link::after {
     content: "";
-    @apply absolute left-0 -bottom-0.5 h-px w-full scale-x-0 transition-transform duration-400;
+
+    @apply absolute left-0 -bottom-0.5 h-px w-full scale-x-0 transition-transform duration-300;
+
     background-color: var(--color-gold);
     transform-origin: right;
   }
 
   .story-link:hover::after {
     @apply scale-x-100;
+
     transform-origin: left;
   }
 }
