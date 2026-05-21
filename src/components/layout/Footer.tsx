@@ -1,6 +1,6 @@
 import { Phone, MapPin, MessageCircle, Instagram } from "lucide-react";
-
 import { brandAssets, companyData } from "@/constants/content";
+import { trackEvent } from "@/lib/analytics";
 
 const connections = [
   {
@@ -10,8 +10,9 @@ const connections = [
   },
   {
     icon: MessageCircle,
-    href: `https://wa.me/${companyData.whatsapp}`,
+    href: companyData.whatsappLink,
     label: "WhatsApp",
+    event: "whatsapp_footer",
   },
   {
     icon: Instagram,
@@ -29,10 +30,7 @@ export default function Footer() {
       {/* Background system */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute inset-0 bg-gradient-to-br from-petrol-deep via-petrol to-petrol-deep" />
-
-        {/* mesma textura global do sistema */}
         <div className="absolute inset-0 texture-gold-overlay" />
-
         <div className="absolute inset-0 bg-black/30" />
       </div>
 
@@ -50,6 +48,7 @@ export default function Footer() {
 
           <address className="not-italic mt-6 text-sm flex items-center gap-2">
             <MapPin size={16} className="text-gold" />
+
             <a
               href={companyData.mapsUrl}
               target="_blank"
@@ -57,19 +56,23 @@ export default function Footer() {
             >
               {companyData.address}
             </a>
+
           </address>
 
           <div className="flex gap-4 mt-4">
+
             {connections.map((item) => (
               <a
                 key={item.label}
                 href={item.href}
                 aria-label={item.label}
+                onClick={() => item.event && trackEvent(item.event)}
                 className="w-10 h-10 rounded-full border border-gold/20 text-gold flex items-center justify-center hover:bg-gold hover:text-petrol-deep transition"
               >
                 <item.icon size={16} />
               </a>
             ))}
+
           </div>
 
           <p className="text-[10px] uppercase tracking-[0.25em] text-ivory/40 mt-4">
@@ -86,6 +89,7 @@ export default function Footer() {
         </div>
 
       </div>
+
     </footer>
   );
 }

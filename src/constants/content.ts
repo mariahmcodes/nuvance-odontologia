@@ -32,6 +32,12 @@ export const companyData = {
 
   phoneRaw: "85992945489",
 
+  whatsappBaseUrl:
+    "https://api.whatsapp.com/send/?phone=5585992945489",
+
+  whatsappLink:
+    "https://api.whatsapp.com/send/?phone=5585992945489&text=Olá!%20Gostaria%20de%20agendar%20uma%20avaliação%20na%20Nuvance.",
+
   instagramUrl:
     "https://www.instagram.com/nuvanceodontologia/",
 
@@ -60,9 +66,6 @@ export const heroContent = {
     primary: "Agende sua avaliação",
     secondary: "Conheça os tratamentos",
   },
-
-  whatsappLink:
-    "https://wa.me/5585992945489?text=Olá!%20Gostaria%20de%20agendar%20uma%20avaliação%20na%20Nuvance.",
 };
 
 export const socialProofStats = [
@@ -428,11 +431,6 @@ export const ctaContent = {
   primary: "Agende pelo WhatsApp",
 
   secondary: "Ligue agora",
-
-  whatsappLink:
-    "https://wa.me/5585992945489?text=Olá!%20Gostaria%20de%20agendar%20uma%20avaliação%20na%20Nuvance.",
-
-  phone: "5585992945489",
 };
 
 export const locationContent = {

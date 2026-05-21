@@ -1,5 +1,6 @@
-import { heroContent } from "@/constants/content";
+import { heroContent, companyData } from "@/constants/content";
 import { NuvanceButton } from "@/components/ui/NuvanceButton";
+import { trackEvent } from "@/lib/analytics";
 
 export default function HeroSection() {
   return (
@@ -59,16 +60,19 @@ export default function HeroSection() {
 
             <NuvanceButton variant="gold" size="md" asChild>
               <a
-                href={heroContent.whatsappLink}
+                href={companyData.whatsappLink}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackEvent("whatsapp_hero")}
               >
                 {heroContent.cta.primary}
               </a>
             </NuvanceButton>
 
             <NuvanceButton variant="outline-gold" size="md" asChild>
-              <a href="#tratamentos">
+              <a
+                href="#tratamentos"
+              >
                 {heroContent.cta.secondary}
               </a>
             </NuvanceButton>

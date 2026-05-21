@@ -4,6 +4,7 @@ import { Instagram, Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { NuvanceButton } from "@/components/ui/NuvanceButton";
 import { brandAssets, companyData, heroContent } from "@/constants/content";
+import { trackEvent } from "@/lib/analytics";
 
 const navLinks = [
   { label: "Sobre", href: "#sobre" },
@@ -95,7 +96,12 @@ export default function Header() {
           </a>
 
           <NuvanceButton variant="gold" size="sm" asChild>
-            <a href={heroContent.whatsappLink}>Agendar</a>
+            <a
+              href={companyData.whatsappLink}
+              onClick={() => trackEvent("whatsapp_header")}
+            >
+              Agendar
+            </a>
           </NuvanceButton>
         </nav>
 
@@ -139,8 +145,11 @@ export default function Header() {
           </a>
 
           <a
-            href={heroContent.whatsappLink}
-            onClick={() => setOpen(false)}
+            href={companyData.whatsappLink}
+            onClick={() => {
+              trackEvent("whatsapp_header");
+              setOpen(false);
+            }}
             className={navText}
           >
             Agendar

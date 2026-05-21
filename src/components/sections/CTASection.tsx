@@ -2,7 +2,9 @@ import { MessageCircle, Phone } from "lucide-react";
 import SectionWrapper from "@/components/layout/SectionWrapper";
 import { NuvanceButton } from "@/components/ui/NuvanceButton";
 import Reveal from "@/components/Reveal";
-import { ctaContent } from "@/constants/content";
+import { ctaContent, companyData } from "@/constants/content";
+
+import { trackEvent } from "@/lib/analytics";
 
 export default function CTASection() {
   return (
@@ -52,10 +54,11 @@ export default function CTASection() {
 
               <NuvanceButton variant="gold" size="md" asChild>
                 <a
-                  href={ctaContent.whatsappLink}
+                  href={companyData.whatsappLink}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center"
+                  onClick={() => trackEvent("whatsapp_cta")}
                 >
                   <MessageCircle size={18} className="mr-2" />
                   {ctaContent.primary}
@@ -63,7 +66,7 @@ export default function CTASection() {
               </NuvanceButton>
 
               <a
-                href={`tel:${ctaContent.phone}`}
+                href={`tel:${companyData.phoneRaw}`}
                 className="
                   flex items-center gap-3
                   text-ivory/80 hover:text-gold
@@ -75,6 +78,7 @@ export default function CTASection() {
                 <div className="h-10 w-10 rounded-full border border-ivory/20 flex items-center justify-center">
                   <Phone size={14} />
                 </div>
+
                 {ctaContent.secondary}
               </a>
 
